@@ -16,15 +16,15 @@ def test_get_user_by_id():
 
 
 def test_add_user():
-    user_data = {"id": 1, "name": "John"}
+    user_data = {"id": 1, "name": "Jan"}
     add_user(user_data)
     assert get_user_by_id(1) == user_data
 
 
 def test_update_user():
-    user_data = {"name": "Jane"}
+    user_data = {"name": "Jan"}
     user = update_user(1, user_data)
-    assert user is None or user['name'] == "Jane"
+    assert user is None or user['name'] == "Jan"
 
 
 def test_delete_user():
