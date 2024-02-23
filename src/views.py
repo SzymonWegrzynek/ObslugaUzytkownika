@@ -46,3 +46,7 @@ def change_user_data(user_id):
 def delete_user(user_id):
     remove_user(user_id)
     return '', 204
+
+
+if __name__ == "__main__":
+    app.run("localhost", 8081, debug=True)
