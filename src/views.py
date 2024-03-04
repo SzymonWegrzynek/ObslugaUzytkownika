@@ -1,24 +1,22 @@
 from flask import Flask
 from flask import request
 from flask import jsonify
-from logic import get_all_users
-from logic import get_specific_user
-from logic import create_user
-from logic import change_user_data
-from logic import remove_user
+from logic import UserLogic
 
 
 app = Flask(__name__)
 
+user_logic = UserLogic()
+
 
 @app.get('/users')
 def get_users():
-    return jsonify(get_all_users()), 200
+    return jsonify(user_logic.get_all_users()), 200
 
 
 @app.get('/users/<int:user_id>')
 def get_user(user_id):
-    user = get_specific_user(user_id)
+    user = user_logic.get_specific_user(user_id)
     if user:
         return jsonify(user), 200
     else:
@@ -28,14 +26,14 @@ def get_user(user_id):
 @app.post('/users')
 def create_user():
     user_data = request.get_json()
-    create_user(user_data)
+    user_logic.create_user(user_data)
     return jsonify(user_data), 201
 
 
 @app.patch('/users/<int:user_id>')
 def change_user_data(user_id):
     user_data = request.get_json()
-    user = change_user_data(user_id, user_data)
+    user = user_logic.change_user_data(user_id, user_data)
     if user:
         return jsonify(user), 200
     else:
@@ -44,7 +42,7 @@ def change_user_data(user_id):
 
 @app.delete('/users/<int:user_id>')
 def delete_user(user_id):
-    remove_user(user_id)
+    user_logic.remove_user(user_id)
     return '', 204
 
 
